@@ -13,12 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             <p>${product.description}</p>
             <p>Categoria: ${product.category}</p>
             <p>Precio: $${product.price}</p>
-            <button onclick="addToCart('${product._id}')">Añadir al carrito</button>
         `;
         productsContainer.appendChild(productElement);
     });
 });
-
-function addToCart(productId) {
-    console.log(`Product ${productId} añadido al carrito`);
-}

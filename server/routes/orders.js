@@ -6,10 +6,10 @@ const router = express.Router();
 
 const authenticate = (req, res, next) => {
     const token = req.header('Authorization').replace('Bearer ', '');
-    if (!token) return res.status(401).json({ error: 'No token provided' });
+    if (!token) return res.status(401).json({ error: 'No se suministro un toke' });
 
     jwt.verify(token, config.jwtSecret, (err, decoded) => {
-        if (err) return res.status(401).json({ error: 'Failed to authenticate token' });
+        if (err) return res.status(401).json({ error: 'Error autenticando token' });
         req.userId = decoded.id;
         req.userRole = decoded.role;
         next();
@@ -18,7 +18,7 @@ const authenticate = (req, res, next) => {
 
 router.get('/', authenticate, async (req, res) => {
     if (req.userRole !== 'admin') {
-        return res.status(403).json({ error: 'Access denied' });
+        return res.status(403).json({ error: 'Acceso denegado' });
     }
 
     try {
@@ -31,7 +31,7 @@ router.get('/', authenticate, async (req, res) => {
 
 router.put('/:id', authenticate, async (req, res) => {
     if (req.userRole !== 'admin') {
-        return res.status(403).json({ error: 'Access denied' });
+        return res.status(403).json({ error: 'Acceso denegado' });
     }
 
     try {
@@ -41,6 +41,29 @@ router.put('/:id', authenticate, async (req, res) => {
         res.status(200).json(result);
     } catch (err) {
         res.status(500).json({ error: err.message });
+    }
+});
+
+router.post('/', authenticate, async (req, res) => {
+    try {
+        const { items } = req.body;
+        //const userId = req.user.id;
+
+        if (!items || items.length === 0) {
+            return res.status(400).json({ error: 'No hay items' });
+        }
+
+        const order = new Order({
+            userId:req.user.id,
+            items,
+            status: 'recibido', // Estado inicial de la orden
+            createdAt: new Date(),
+        });
+
+        await order.save();
+        res.status(201).json(order);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
     }
 });
 

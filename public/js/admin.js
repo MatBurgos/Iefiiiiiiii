@@ -24,10 +24,9 @@ function displayProducts(products) {
             <h3>${product.title}</h3>
             <img src="${product.image}" alt="${product.title}">
             <p>${product.description}</p>
-            <p>Category: ${product.category}</p>
-            <p>Price: $${product.price}</p>
-            <button onclick="deleteProduct('${product._id}')">Delete</button>
-            <button onclick="showEditForm('${product._id}')">Edit</button>
+            <p>Categoria: ${product.category}</p>
+            <p>Precio: $${product.price}</p>
+            <button onclick="deleteProduct('${product._id}')">Eliminar</button>
         `;
         productsContainer.appendChild(productElement);
     });
@@ -51,11 +50,11 @@ async function addProduct(event) {
     });
 
     if (response.ok) {
-        alert('Product added successfully');
+        alert('Producto añadido con exito');
         fetchProducts();
     } else {
         const data = await response.json();
-        alert(`Failed to add product: ${data.error}`);
+        alert(`Error al añadir producto: ${data.error}`);
     }
 }
 
@@ -68,16 +67,12 @@ async function deleteProduct(productId) {
     });
 
     if (response.ok) {
-        alert('Product deleted successfully');
+        alert('Producto eliminado');
         fetchProducts();
     } else {
         const data = await response.json();
-        alert(`Failed to delete product: ${data.error}`);
+        alert(`Error eliminar el producto: ${data.error}`);
     }
-}
-
-function showEditForm(productId) {
-    // Implementation for showing the edit form and handling product updates
 }
 
 async function fetchOrders() {
@@ -92,7 +87,7 @@ async function fetchOrders() {
         displayOrders(orders);
     } else {
         const data = await response.json();
-        alert(`Failed to fetch orders: ${data.error}`);
+        alert(`Error all conseguir las ordenes: ${data.error}`);
     }
 }
 
@@ -112,8 +107,8 @@ function displayOrders(orders) {
             <ul>
                 ${order.items.map(item => `<li>${item.title} (x${item.quantity}) - $${item.price}</li>`).join('')}
             </ul>
-            <button onclick="updateOrderStatus('${order._id}', 'received')">Mark as Received</button>
-            <button onclick="updateOrderStatus('${order._id}', 'delivered')">Mark as Delivered</button>
+            <button onclick="updateOrderStatus('${order._id}', 'received')">Marcar como recibida</button>
+            <button onclick="updateOrderStatus('${order._id}', 'delivered')">marcar como eliminada</button>
         `;
         ordersContainer.appendChild(orderElement);
     });
@@ -130,11 +125,11 @@ async function updateOrderStatus(orderId, status) {
     });
 
     if (response.ok) {
-        alert('Order status updated successfully');
+        alert('Estado de orden actualizado');
         fetchOrders();
     } else {
         const data = await response.json();
-        alert(`Failed to update order status: ${data.error}`);
+        alert(`Error al actualizar estado: ${data.error}`);
     }
 }
 
@@ -154,7 +149,7 @@ function displayCategories(categories) {
         categoryElement.className = 'category';
         categoryElement.innerHTML = `
             <h3>${category.name}</h3>
-            <button onclick="deleteCategory('${category._id}')">Delete</button>
+            <button onclick="deleteCategory('${category._id}')">Eliminar</button>
         `;
         categoriesContainer.appendChild(categoryElement);
     });
@@ -174,11 +169,11 @@ async function addCategory(event) {
     });
 
     if (response.ok) {
-        alert('Category added successfully');
+        alert('Categoria añadida con exito');
         fetchCategories();
     } else {
         const data = await response.json();
-        alert(`Failed to add category: ${data.error}`);
+        alert(`Error al añadir categoria: ${data.error}`);
     }
 }
 
@@ -191,11 +186,11 @@ async function deleteCategory(categoryId) {
     });
 
     if (response.ok) {
-        alert('Category deleted successfully');
+        alert('Categoria eliminada con exito');
         fetchCategories();
     } else {
         const data = await response.json();
-        alert(`Failed to delete category: ${data.error}`);
+        alert(`Error al borra categoria: ${data.error}`);
     }
 }
 

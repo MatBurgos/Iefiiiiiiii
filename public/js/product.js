@@ -19,10 +19,10 @@ function displayProducts(products) {
             <h3>${product.title}</h3>
             <img src="${product.image}" alt="${product.title}">
             <p>${product.description}</p>
-            <p>Category: ${product.category}</p>
-            <p>Price: $${product.price}</p>
+            <p>Categoria: ${product.category}</p>
+            <p>Precio: $${product.price}</p>
             <input type="number" id="quantity-${product._id}" min="1" value="1">
-            <button onclick="addToCart('${product._id}', '${product.title}', '${product.image}', ${product.price})">Add to Cart</button>
+            <button onclick="addToCart('${product._id}', '${product.title}', '${product.image}', ${product.price})">Añadir al carrito</button>
         `;
         productsContainer.appendChild(productElement);
     });
@@ -41,5 +41,5 @@ function addToCart(id, title, image, price) {
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-    alert('Product added to cart');
+    alert('Producto añadido al carrito');
 }

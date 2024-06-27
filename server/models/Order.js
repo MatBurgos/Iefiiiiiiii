@@ -1,52 +1,47 @@
 const { MongoClient, ObjectId } = require('mongodb');
 const config = require('../config');
+const mongoose = require('mongoose');
 
-const client = new MongoClient(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true });
-
-const Order = {
-    getAll: async () => {
-        await client.connect();
-        const db = client.db('ecommerce');
-        const orders = db.collection('orders');
-        const allOrders = await orders.find().toArray();
-        await client.close();
-        return allOrders;
+const Schema = mongoose.Schema;
+const orderSchema = new Schema({
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
     },
-    getById: async (id) => {
-        await client.connect();
-        const db = client.db('ecommerce');
-        const orders = db.collection('orders');
-        const order = await orders.findOne({ _id: new ObjectId(id) });
-        await client.close();
-        return order;
+    items: [
+        {
+            id: {
+                type: Schema.Types.ObjectId,
+                ref: 'Product',
+                required: true
+            },
+            title: {
+                type: String,
+                required: true
+            },
+            image: {
+                type: String,
+                required: true
+            },
+            price: {
+                type: Number,
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true
+            }
+        }
+    ],
+    status: {
+        type: String,
+        enum: ['received', 'delivered'],
+        default: 'received'
     },
-    add: async (order) => {
-        await client.connect();
-        const db = client.db('ecommerce');
-        const orders = db.collection('orders');
-        const result = await orders.insertOne(order);
-        await client.close();
-        return result;
-    },
-    update: async (id, status) => {
-        await client.connect();
-        const db = client.db('ecommerce');
-        const orders = db.collection('orders');
-        const result = await orders.updateOne(
-            { _id: new ObjectId(id) },
-            { $set: { status } }
-        );
-        await client.close();
-        return result;
-    },
-    delete: async (id) => {
-        await client.connect();
-        const db = client.db('ecommerce');
-        const orders = db.collection('orders');
-        const result = await orders.deleteOne({ _id: new ObjectId(id) });
-        await client.close();
-        return result;
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
-};
+});
 
-module.exports = Order;
+module.exports = mongoose.model('Order', orderSchema);

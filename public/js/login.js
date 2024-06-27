@@ -13,11 +13,11 @@ document.getElementById('loginForm').addEventListener('submit', async (e) => {
 
     const data = await response.json();
     if (response.ok) {
-        alert('Login successful');
+        alert('Login exitoso');
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.role);
         window.location.href = 'index.html';
     } else {
-        alert(`Login failed: ${data.error}`);
+        alert(`Error de login: ${data.error}`);
     }
 });

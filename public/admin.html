@@ -10,38 +10,38 @@
     <header>
         <h1>Admin Panel</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="products.html">Products</a>
+            <a href="index.html">Inicio</a>
+            <a href="products.html">Productos</a>
             <button id="logoutButton">Logout</button>
         </nav>
     </header>
     <main>
-        <h2>Manage Products</h2>
+        <h2>Gestionar productos</h2>
         <div id="productsContainer"></div>
-        <h2>Add Product</h2>
+        <h2>Añadir productos</h2>
         <form id="addProductForm">
-            <label for="title">Title:</label>
+            <label for="title">Titulo:</label>
             <input type="text" id="title" name="title" required>
-            <label for="image">Image URL:</label>
+            <label for="image">Imagen URL:</label>
             <input type="url" id="image" name="image" required>
-            <label for="description">Description:</label>
+            <label for="description">Descripcion:</label>
             <textarea id="description" name="description" required></textarea>
-            <label for="category">Category:</label>
+            <label for="category">Categoria:</label>
             <select id="category" name="category" required></select>
-            <label for="price">Price:</label>
+            <label for="price">Precio:</label>
             <input type="number" id="price" name="price" required>
-            <button type="submit">Add Product</button>
+            <button type="submit">Añadir producto</button>
         </form>
         
-        <h2>Manage Orders</h2>
+        <h2>Gestionar ordenes</h2>
         <div id="ordersContainer"></div>
         
-        <h2>Manage Categories</h2>
+        <h2>Gestionar categorias</h2>
         <div id="categoriesContainer"></div>
         <form id="addCategoryForm">
-            <label for="categoryName">Category Name:</label>
+            <label for="categoryName">Nombre de categoria:</label>
             <input type="text" id="categoryName" name="categoryName" required>
-            <button type="submit">Add Category</button>
+            <button type="submit">Añadir categoria</button>
         </form>
     </main>
     <script src="js/admin.js"></script>

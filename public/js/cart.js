@@ -13,10 +13,10 @@ async function displayCart() {
         productElement.innerHTML = `
             <h3>${item.title}</h3>
             <img src="${item.image}" alt="${item.title}">
-            <p>Price: $${item.price}</p>
-            <p>Quantity: ${item.quantity}</p>
+            <p>Precio: $${item.price}</p>
+            <p>Cantidad: ${item.quantity}</p>
             <p>Subtotal: $${item.price * item.quantity}</p>
-            <button onclick="removeFromCart('${item.id}')">Remove</button>
+            <button onclick="removeFromCart('${item.id}')">Remover</button>
         `;
 
         subtotal += item.price * item.quantity;

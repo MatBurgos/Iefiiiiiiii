@@ -14,9 +14,9 @@ document.getElementById('registerForm').addEventListener('submit', async (e) => 
 
     const data = await response.json();
     if (response.ok) {
-        alert('Registration successful');
+        alert('Registro con exito');
         window.location.href = 'login.html';
     } else {
-        alert(`Registration failed: ${data.error}`);
+        alert(`Fallo en la registracion de usuario: ${data.error}`);
     }
 });
