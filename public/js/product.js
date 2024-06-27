@@ -1,9 +1,19 @@
-document.addEventListener('DOMContentLoaded', () => {
-    fetchProducts();
+document.addEventListener('DOMContentLoaded', async () => {
+    await loadCategories();
+    await fetchProducts();
+
+    document.getElementById('filterButton').addEventListener('click', () => {
+        const category = document.getElementById('categorySelect').value;
+        fetchProducts(category);
+    });
 });
 
-async function fetchProducts() {
-    const response = await fetch('/api/products');
+async function fetchProducts(category) {
+    let url = '/api/products';
+    if (category) {
+        url += `/category/${category}`;
+    }
+    const response = await fetch(url);
     const products = await response.json();
     displayProducts(products);
 }
@@ -42,4 +52,17 @@ function addToCart(id, title, image, price) {
 
     localStorage.setItem('cart', JSON.stringify(cart));
     alert('Producto añadido al carrito');
+}
+
+async function loadCategories() {
+    const response = await fetch('/api/categories');
+    const categories = await response.json();
+
+    const categorySelect = document.getElementById('categorySelect');
+    categories.forEach(category => {
+        const option = document.createElement('option');
+        option.value = category.name;
+        option.textContent = category.name;
+        categorySelect.appendChild(option);
+    });
 }
